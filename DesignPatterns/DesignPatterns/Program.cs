@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesignPatternsApp.ServiceLayer;
+using System;
 
 namespace DesignPatterns
 {
@@ -6,7 +7,13 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            
+            var menuOrchestrator = new MenuOrchestrator();
+
+            var runProgram = true;
+            while (runProgram)
+            {
+                runProgram = menuOrchestrator.RunApp();
+            }
         }
     }
 }
