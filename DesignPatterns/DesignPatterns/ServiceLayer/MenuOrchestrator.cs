@@ -9,55 +9,92 @@ namespace DesignPatternsApp.ServiceLayer
 {
     public class MenuOrchestrator
     {
-        private PatternsList _patterns = new PatternsList();
+        private readonly PatternsRepository _patterns = new PatternsRepository();
+
+        private readonly CreationalDictionary _creationalDictionary = new CreationalDictionary();
+
         public bool RunApp()
         {
-            var homeMenu = PrintHomeMenu();
+            PrintHomeMenu();
 
-            switch (homeMenu)
+            var continuationKey = Console.ReadKey(true).Key;
+
+            switch (continuationKey)
             {
-                case 1:
+                case ConsoleKey.D1:
                     PrintPatternsByCategory(Category.Creational);
                     break;
-                case 2:
+                case ConsoleKey.D2:
                     PrintPatternsByCategory(Category.Behavioral);
                     break;
-                case 3:
+                case ConsoleKey.D3:
                     PrintPatternsByCategory(Category.Structural);
                     break;
                 default:
                     break;
             }
 
-            Console.WriteLine("\n\nHow would you like to continue?\n" +
-                "1. Return back to Home Menu\n" +
-                "2. Exit (Press 14)");
-
-            var continuation = Convert.ToInt32(Console.ReadLine());
-
-            return continuation == 14;
+            return continuationKey != ConsoleKey.X;
         }
 
-        private int PrintHomeMenu()
+        private static void PrintHomeMenu()
         {
             Console.Clear();
-            Console.WriteLine("\t\t WELCOME TO THE DESIGN PATTERNS APP\n" +
-                "1. Creational\n" +
-                "2. Behavioral\n" +
-                "3. Structural\n");
-            return Convert.ToInt32(Console.ReadLine());
+            
+            Console.WriteLine(string.Format("\t {0} \n {1}\n {2}\n {3}\n",
+                "WELCOME TO THE DESIGN PATTERNS APP",
+                "1. Creational",
+                "2. Behavioral",
+                "3. Structural"));
+
+            PrintExit();
         }
+
+        private static void PrintExit() => Console.WriteLine("\n Exit [ x ]");
+        private static void PrintReturn() => Console.WriteLine(string.Format("\t\n   Return back [ Backspace ]\n"));
 
         private void PrintPatternsByCategory(Category category)
         {
             Console.Clear();
+            Console.WriteLine();
 
             var patterns = _patterns.GetByCategory(category);
 
             for (int i = 0; i < patterns.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {patterns[i]}");
+                Console.WriteLine($" {i + 1}. {patterns.ElementAt(i)}");
+            }
+
+            PrintReturn();
+
+            PatternSelector(category);
+            PrintHomeMenu();
+        }
+
+        private void PatternSelector(Category category)
+        {
+            while(true)
+            {
+                var key = Console.ReadKey(true).Key;
+
+                switch (category)
+                {
+                    case Category.Creational:
+                        break;
+                    case Category.Behavioral:
+                        break;
+                    case Category.Structural:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
+        private void PrintCreational(ConsoleKey key)
+        {
+            Console.WriteLine(_creationalDictionary.GetKeyValues()[key]);
+        }
+
     }
 }
