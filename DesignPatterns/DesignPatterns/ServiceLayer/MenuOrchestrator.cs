@@ -1,4 +1,5 @@
-﻿using DesignPatterns.ServiceLayer;
+﻿using DesignPatterns.Creational;
+using DesignPatterns.ServiceLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,10 +81,34 @@ namespace DesignPatternsApp.ServiceLayer
                 switch (category)
                 {
                     case Category.Creational:
+                        if (_creationalDictionary.GetKeyValues().Keys.Contains(key))
+                        {
+                            Console.WriteLine();
+                        }
+                        else if (key == ConsoleKey.Backspace)
+                        {
+                            break;
+                        }
                         break;
                     case Category.Behavioral:
+                        if (_creationalDictionary.GetKeyValues().Keys.Contains(key))
+                        {
+                            Console.WriteLine();
+                        }
+                        else if (key == ConsoleKey.Backspace)
+                        {
+                            break;
+                        }
                         break;
                     case Category.Structural:
+                        if (_creationalDictionary.GetKeyValues().Keys.Contains(key))
+                        {
+                            Console.WriteLine();
+                        }
+                        else if (key == ConsoleKey.Backspace)
+                        {
+                            break;
+                        }
                         break;
                     default:
                         break;
